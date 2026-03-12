@@ -1,0 +1,11 @@
+AuthType shibboleth
+ShibRequestSetting requireSession 1
+Require shibboleth
+
+<RequireAny>
+    # Allow direct access from campus broadcast network
+    Require ip 158.104.114.0/24
+
+    # Otherwise require Shibboleth authentication
+    Require shib-user csabato mdrader
+</RequireAny>
