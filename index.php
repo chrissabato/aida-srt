@@ -73,7 +73,8 @@ $cameras = json_decode(file_get_contents('cameras.json'), true);
                                                    '<?= htmlspecialchars($camera['cam_key']) ?>',
                                                    '<?= htmlspecialchars($camera['caller_srt']) ?>',
                                                    '<?= htmlspecialchars($camera['port']) ?>',
-                                                   'enable', <?= $index ?>)">
+                                                   'enable', <?= $index ?>,
+                                                   <?= (int)($camera['latency'] ?? 500) ?>)">
                             Enable
                         </button>
                         <button class="flex-1 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-3 rounded text-sm uppercase tracking-wide transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
@@ -81,7 +82,8 @@ $cameras = json_decode(file_get_contents('cameras.json'), true);
                                                    '<?= htmlspecialchars($camera['cam_key']) ?>',
                                                    '<?= htmlspecialchars($camera['caller_srt']) ?>',
                                                    '<?= htmlspecialchars($camera['port']) ?>',
-                                                   'disable', <?= $index ?>)">
+                                                   'disable', <?= $index ?>,
+                                                   <?= (int)($camera['latency'] ?? 500) ?>)">
                             Disable
                         </button>
                     </div>
@@ -133,7 +135,7 @@ $cameras = json_decode(file_get_contents('cameras.json'), true);
         }
 
         // Toggle SRT
-        async function toggleSRT(cameraIp, camKey, srtIp, port, action, index) {
+        async function toggleSRT(cameraIp, camKey, srtIp, port, action, index, latency = 500) {
             const statusEl = document.getElementById(`status-${index}`);
             const card = statusEl.closest('div').closest('div');
             const buttons = card.querySelectorAll('button');
@@ -151,6 +153,7 @@ $cameras = json_decode(file_get_contents('cameras.json'), true);
                 formData.append('cam_key', camKey);
                 formData.append('srt_ip', srtIp);
                 formData.append('port', port);
+                formData.append('latency', latency);
                 formData.append('action', action);
 
                 const response = await fetch('api.php', {
@@ -198,7 +201,7 @@ $cameras = json_decode(file_get_contents('cameras.json'), true);
             // Toggle each camera sequentially
             for (let i = 0; i < cameras.length; i++) {
                 const camera = cameras[i];
-                await toggleSRT(camera.cam_ip, camera.cam_key, camera.caller_srt, camera.port, action, i);
+                await toggleSRT(camera.cam_ip, camera.cam_key, camera.caller_srt, camera.port, action, i, camera.latency ?? 500);
                 // Small delay between cameras to avoid overwhelming the network
                 await new Promise(resolve => setTimeout(resolve, 200));
             }

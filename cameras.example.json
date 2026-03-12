@@ -4,13 +4,15 @@
         "cam_ip": "192.168.1.101",
         "cam_key": "YOUR_CAM_KEY",
         "caller_srt": "your-srt-endpoint-1.example.com",
-        "port": "28707"
+        "port": "28707",
+        "latency": 500
     },
     {
         "name": "Court 2",
         "cam_ip": "192.168.1.102",
         "cam_key": "YOUR_CAM_KEY",
         "caller_srt": "your-srt-endpoint-2.example.com",
-        "port": "28707"
+        "port": "28707",
+        "latency": 500
     }
 ]

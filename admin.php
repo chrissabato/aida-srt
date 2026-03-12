@@ -162,6 +162,14 @@ $cameras = json_decode(file_get_contents('cameras.json'), true);
                                class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none"
                                placeholder="5001">
                     </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Latency (ms)</label>
+                        <input type="number"
+                               value="${camera.latency ?? 500}"
+                               onchange="updateCamera(${index}, 'latency', parseInt(this.value))"
+                               class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none"
+                               placeholder="500">
+                    </div>
                 </div>
             `;
             return div;
@@ -179,7 +187,8 @@ $cameras = json_decode(file_get_contents('cameras.json'), true);
                 cam_ip: '158.104.114.1XX',
                 cam_key: '000000000',
                 caller_srt: '158.104.114.33',
-                port: `500${cameras.length + 1}`
+                port: `500${cameras.length + 1}`,
+                latency: 500
             };
             cameras.push(newCamera);
             renderCameras();

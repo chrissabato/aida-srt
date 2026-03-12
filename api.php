@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $srtIp = $_POST['srt_ip'] ?? '';
     $action = $_POST['action'] ?? '';
     $port = $_POST['port'] ?? '5000';
+    $latency = (int)($_POST['latency'] ?? 500);
 
     if (!$cameraIp || !$camKey || !$srtIp || !in_array($action, ['enable', 'disable'])) {
         echo json_encode(['success' => false, 'error' => 'Invalid parameters']);
@@ -24,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'enable' => $enable,
                 'ip' => $srtIp,
                 'port' => (int)$port,
+                'latency' => $latency,
                 'streamid' => '',
                 'encryption' => 0,
                 'key length' => 32,
@@ -33,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'enable' => 0,
                 'ip' => $srtIp,
                 'port' => (int)$port,
+                'latency' => $latency,
                 'streamid' => '',
                 'encryption' => 0,
                 'key length' => 32,
