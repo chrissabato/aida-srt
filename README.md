@@ -12,7 +12,7 @@ A PHP web dashboard for managing SRT (Secure Reliable Transport) video streams f
 ## Requirements
 
 - PHP 7.0+ with cURL extension
-- Apache with `mod_rewrite` and Shibboleth authentication module
+- Apache
 - Write permission on `cameras.json` for the web server user
 
 ## Setup
@@ -34,7 +34,7 @@ A PHP web dashboard for managing SRT (Secure Reliable Transport) video streams f
    sudo chown www-data:www-data cameras.json
    ```
 
-5. Add a `.htaccess` file to configure authentication for your environment.
+5. Add a `.htaccess` file to configure access control for your environment.
 
 ## Camera Configuration
 
